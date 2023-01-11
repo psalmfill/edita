@@ -21,8 +21,6 @@
                         <table class="table table-striped">
                             <thead>
                                 <tr>
-                                    <th>Student Name</th>
-                                    <th>Matric Number</th>
                                     <th>
                                         Title
                                     </th>
@@ -40,8 +38,6 @@
                             <tbody>
                                 @foreach ($projects as $project)
                                     <tr>
-                                        <td>{{ $project->student->full_name }}</td>
-                                        <td>{{ $project->student->matric_number }}</td>
                                         <td class="py-1">
                                             {{ $project->title }}
                                         </td>
@@ -52,7 +48,7 @@
                                             {{ $project->created_at->format('d F,Y') }}
                                         </td>
                                         <td><a class="btn btn-outline-danger"
-                                                href="{{ route('staff.projects.download', $project->id) }}">
+                                                href="{{ route('student.projects.download', $project->id) }}">
                                                 <i class="ti-download"></i>
                                             </a></td>
                                     </tr>
