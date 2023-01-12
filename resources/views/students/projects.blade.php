@@ -39,7 +39,9 @@
                                 @foreach ($projects as $project)
                                     <tr>
                                         <td class="py-1">
-                                            {{ $project->title }}
+                                            <a href="{{ route('student.project', $project->id) }}">
+                                                {{ $project->title }}
+                                            </a>
                                         </td>
                                         <td>
                                             {{ $project->description }}</td>

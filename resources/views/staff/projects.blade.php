@@ -43,7 +43,10 @@
                                         <td>{{ $project->student->full_name }}</td>
                                         <td>{{ $project->student->matric_number }}</td>
                                         <td class="py-1">
-                                            {{ $project->title }}
+
+                                            <a href="{{ route('staff.project', $project->id) }}">
+                                                {{ $project->title }}
+                                            </a>
                                         </td>
                                         <td>
                                             {{ $project->description }}</td>

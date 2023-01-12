@@ -39,9 +39,12 @@ Route::group(['prefix' => 'student'], function () {
     Route::get('/login', [StudentAuthController::class, 'login'])->name('login');
     Route::post('/login', [StudentAuthController::class, 'authenticate'])->name('do.login');
     Route::get('/projects', [StudentController::class, 'projects'])->name('student.projects');
+    Route::get('/all-projects', [StudentController::class, 'allProjects'])->name('students.all_projects');
     Route::get('/projects/upload/', [StudentController::class, 'uploadProjectForm'])->name('student.projects.upload.show');
     Route::post('/projects/upload/', [StudentController::class, 'uploadProject'])->name('student.projects.upload');
     Route::get('/projects/download/{id}', [StudentController::class, 'getDownload'])->name('student.projects.download');
+    Route::post('/projects/comment', [StudentController::class, 'submitComment'])->name('student.project.comment');
+    Route::get('/projects/{id}', [StudentController::class, 'getProject'])->name('student.project');
 });
 
 
@@ -51,8 +54,10 @@ Route::group(['prefix' => 'dashboard'], function () {
 
     Route::get('/', [StaffController::class, 'index'])->name('staff.dashboard');
     Route::get('/projects', [StaffController::class, 'projects'])->name('staff.projects');
+    Route::post('/projects/comment', [StaffController::class, 'submitComment'])->name('staff.project.comment');
     Route::get('/projects/download/{id}', [StaffController::class, 'getDownload'])->name('staff.projects.download');
     Route::get('/students', [StaffController::class, 'students'])->name('staff.students');
+    Route::get('/projects/{id}', [StaffController::class, 'getProject'])->name('staff.project');
 });
 
 Route::get('/{any?}', function () {

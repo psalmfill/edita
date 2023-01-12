@@ -20,4 +20,9 @@ class Project extends Model
     {
         return $this->belongsTo(Student::class);
     }
+
+    public function comments()
+    {
+        return $this->hasMany(Comment::class);
+    }
 }

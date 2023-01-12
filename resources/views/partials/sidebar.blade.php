@@ -15,6 +15,13 @@
                      <span class="menu-title">My Projects</span>
                  </a>
              </li>
+
+             <li class="nav-item">
+                 <a class="nav-link" href="{{ route('students.all_projects') }}">
+                     <i class="mdi mdi-book-open-page-variant menu-icon"></i>
+                     <span class="menu-title">Projects</span>
+                 </a>
+             </li>
          @else
              <li class="nav-item">
                  <a class="nav-link" href="{{ route('staff.students') }}">
