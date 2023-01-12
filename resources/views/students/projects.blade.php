@@ -21,6 +21,8 @@
                         <table class="table table-striped">
                             <thead>
                                 <tr>
+                                    <th>Student Name</th>
+                                    <th>Matric Number</th>
                                     <th>
                                         Title
                                     </th>
@@ -38,6 +40,8 @@
                             <tbody>
                                 @foreach ($projects as $project)
                                     <tr>
+                                        <td>{{ $project->student->full_name }}</td>
+                                        <td>{{ $project->student->matric_number }}</td>
                                         <td class="py-1">
                                             <a href="{{ route('student.project', $project->id) }}">
                                                 {{ $project->title }}
