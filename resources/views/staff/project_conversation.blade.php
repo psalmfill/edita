@@ -58,7 +58,7 @@
                     <div class="card-description">
                         {{ $project->description }}
                     </div>
-
+                    @if($conversation)
                     @php
                         $messages = $conversation->messages()->paginate() ;
                     @endphp
@@ -78,6 +78,8 @@
                         </div>
                     </div>
                     @endforeach
+
+                    @endif
 
                     <hr>
                     <form class="forms-sample" action="{{ route('staff.projects.conversation.send', $project->id) }}" method="post">
