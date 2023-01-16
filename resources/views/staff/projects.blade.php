@@ -30,6 +30,8 @@
                                     <th>
                                         Submited Date
                                     </th>
+                                    <th>Score</th>
+                                    <th>Grade</th>
 
                                     <th>
                                         Action
@@ -54,10 +56,19 @@
                                         <td>
                                             {{ $project->created_at->format('d F,Y') }}
                                         </td>
-                                        <td><a class="btn btn-outline-danger"
+                                        <td>{{ $project->score??'NA' }}</td>
+                                        <td>
+                                            {{ $project->grade??'Not graded' }}
+                                        </td>
+                                        <td><a class="btn btn-outline-danger btn-sm"
                                                 href="{{ route('staff.projects.download', $project->id) }}">
                                                 <i class="ti-download"></i>
-                                            </a></td>
+                                            </a>
+                                            <a class="btn btn-outline-danger btn-sm"
+                                                href="{{ route('staff.projects.conversation', $project->id) }}">
+                                                <i class="mdi mdi-message"></i>
+                                            </a>
+                                        </td>
                                     </tr>
                                 @endforeach
 

@@ -45,6 +45,9 @@ Route::group(['prefix' => 'student'], function () {
     Route::get('/projects/download/{id}', [StudentController::class, 'getDownload'])->name('student.projects.download');
     Route::post('/projects/comment', [StudentController::class, 'submitComment'])->name('student.project.comment');
     Route::get('/projects/{id}', [StudentController::class, 'getProject'])->name('student.project');
+
+    Route::get('/projects/{id}/conversation', [StudentController::class, 'getProjectConversation'])->name('student.projects.conversation');
+    Route::post('/projects/{id}/conversation', [StudentController::class, 'sendProjectConversation'])->name('student.projects.conversation.send');
 });
 
 
@@ -57,7 +60,10 @@ Route::group(['prefix' => 'dashboard'], function () {
     Route::post('/projects/comment', [StaffController::class, 'submitComment'])->name('staff.project.comment');
     Route::get('/projects/download/{id}', [StaffController::class, 'getDownload'])->name('staff.projects.download');
     Route::get('/students', [StaffController::class, 'students'])->name('staff.students');
+    Route::post('/projects/grade', [StaffController::class, 'gradeProject'])->name('staff.project.grade');
     Route::get('/projects/{id}', [StaffController::class, 'getProject'])->name('staff.project');
+    Route::get('/projects/{id}/conversation', [StaffController::class, 'getProjectConversation'])->name('staff.projects.conversation');
+    Route::post('/projects/{id}/conversation', [StaffController::class, 'sendProjectConversation'])->name('staff.projects.conversation.send');
 });
 
 Route::get('/{any?}', function () {

@@ -44,6 +44,9 @@
             <div class="text-center mt-4 font-weight-light">
                 Don't have an account? <a href="{{ route('signup') }}" class="text-primary">Create</a>
             </div>
+
+            <div class="text-center mt-4 font-weight-light"> <a href="{{ route('staff_login') }}" class="btn btn-outline-primary">Staff Access</a>
+            </div>
         </form>
     </div>
 @endsection

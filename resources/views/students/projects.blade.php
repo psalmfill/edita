@@ -30,6 +30,10 @@
                                     <th>
                                         Submited Date
                                     </th>
+                                    @if(url()->current() == route('student.projects'))
+                                    <th>Score</th>
+                                    <th>Grade</th>
+                                    @endif
 
                                     <th>
                                         Action
@@ -53,10 +57,25 @@
                                         <td>
                                             {{ $project->created_at->format('d F,Y') }}
                                         </td>
-                                        <td><a class="btn btn-outline-danger"
+                                        @if(url()->current() == route('student.projects'))
+
+                                        <td>{{ $project->score??'NA' }}</td>
+                                        <td>
+                                            {{ $project->grade??'Not graded' }}
+                                        </td>
+                                        @endif
+                                        <td>
+                                            <a class="btn btn-outline-danger btn-sm"
                                                 href="{{ route('student.projects.download', $project->id) }}">
                                                 <i class="ti-download"></i>
-                                            </a></td>
+                                            </a>
+                                            @if(auth('student')->user() == $project->student)
+                                            <a class="btn btn-outline-danger btn-sm"
+                                                href="{{ route('student.projects.conversation', $project->id) }}">
+                                                <i class="mdi mdi-message"></i>
+                                            </a>
+                                            @endif
+                                        </td>
                                     </tr>
                                 @endforeach
 

@@ -58,31 +58,37 @@
                     <div class="card-description">
                         {{ $project->description }}
                     </div>
+
+                    @php
+                        $messages = $conversation->messages()->paginate() ;
+                    @endphp
+                    {{ $messages->links() }}
+
+                    @foreach ($messages as $message)
+                    <div class="d-flex {{ auth()->user() == $message->sender? 'flex-row-reverse':'' }}">
+
+                        <div class="card p-3 m-2 col-5 text-white float-right {{ auth()->user() == $message->sender? 'bg-secondary':'bg-info' }}">
+                            <div class="d-flex justify-content-between">
+
+                                <h5 class="text-primary">{{ $message->sender->full_name }}</h5>
+                                <p><small>{{ $message->created_at->diffForHumans() }}</small></p>
+                            </div>
+
+                            {{ $message->content }}
+                        </div>
+                    </div>
+                    @endforeach
+
                     <hr>
-                    <form class="forms-sample" action="{{ route('staff.project.comment') }}" method="post">
+                    <form class="forms-sample" action="{{ route('staff.projects.conversation.send', $project->id) }}" method="post">
                         @csrf
                         <input type="hidden" name="project_id" value="{{ $project->id }}" />
                         <div class="form-group">
-                            <label for="exampleTextarea1">Leave a comment</label>
-                            <textarea class="form-control" id="exampleTextarea1" name="content" rows="4"></textarea>
+                            <textarea class="form-control" id="exampleTextarea1" name="content" placeholder="Message" rows="4"></textarea>
                         </div>
                         <button type="submit" class="btn btn-primary mr-2">Submit</button>
                     </form>
-
-                    @foreach ($comments as $comment)
-                        <hr>
-                        <div class="card p-3">
-                            <div class="d-flex justify-content-between">
-
-                                <h5 class="text-primary">{{ $comment->commentable->full_name }}</h5>
-                                <p><small>{{ $comment->created_at->diffForHumans() }}</small></p>
-                            </div>
-
-                            {{ $comment->content }}
-                        </div>
-                    @endforeach
                     <hr>
-                    {{ $comments->links() }}
                 </div>
             </div>
         </div>

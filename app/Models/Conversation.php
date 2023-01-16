@@ -14,4 +14,9 @@ class Conversation extends Model
     {
         return $this->hasMany(Message::class);
     }
+
+    public function projects()
+    {
+        return $this->belongsToMany(Project::class)->withPivot(["user_id", 'student_id']);
+    }
 }

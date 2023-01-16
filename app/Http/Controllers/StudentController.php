@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Comment;
+use App\Models\Conversation;
 use App\Models\Project;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Response;
@@ -98,5 +99,49 @@ class StudentController extends Controller
         }
 
         return redirect()->back()->with('error', 'comment was not submited');
+    }
+
+    public function getProjectConversation($id){
+        $project = Project::findOrFail($id);
+
+        $conversation = Conversation::whereHas('projects', function($q) use ($project) {
+            $q->where([
+                'project_id' => $project->id,
+            ])
+            ->where([
+                'conversation_project.user_id' => auth()->id(),
+                'conversation_project.student_id' => $project->student_id
+            ]);
+        })->first();
+        return view('students.project_conversation', compact('project', 'conversation'));
+    }
+
+    public function sendProjectConversation(Request $request,$id){
+        $project = Project::findOrFail($id);
+
+        $conversation = Conversation::whereHas('projects', function($q) use ($project) {
+            $q->where([
+                'project_id' => $project->id,
+            ])
+            ->where([
+                'conversation_project.user_id' => auth()->id(),
+                'conversation_project.student_id' => $project->student_id
+            ]);
+        })->first();
+        if (!$conversation){
+            return redirect()->back()->with('message', "Message sent");
+            $conversation = Conversation::create();
+            $conversation->projects()->attach([$project->id => [
+                'user_id' => auth()->id(),
+                'student_id' => $project->student_id
+            ]]);
+
+        }
+        $conversation->messages()->create([
+            'sender_type' => \App\Models\Student::class,
+            'sender_id' => auth()->id(),
+            'content' => $request->content,
+        ]);
+        return redirect()->back()->with('message', "Message sent");
     }
 }

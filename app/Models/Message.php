@@ -9,8 +9,15 @@ class Message extends Model
 {
     use HasFactory;
 
+    protected $fillable = [
+        'content', 'sender_id', 'sender_type'
+    ];
+
     public function conversation()
     {
         return $this->belongsTo(Conversation::class);
+    }
+    public function sender(){
+        return $this->morphTo();
     }
 }
