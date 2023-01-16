@@ -35,6 +35,9 @@ class Project extends Model
 
     public function getGradeAttribute()
     {
+        if (!$this->score){
+            return null;
+        }
         if($this->score >=70){
             return 'A';
         }elseif($this->score >=60){

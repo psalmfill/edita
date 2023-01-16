@@ -6,8 +6,14 @@
                 <div class="card-body">
                     <div class="d-flex justify-content-between">
                         <div>
+
+                            @if(url()->current() == route('student.projects'))
                             <h4 class="card-title">My Projects</h4>
+                            @else
+                            <h4 class="card-title">Projects</h4>
+                            @endif
                             <p class="card-description">
+
                                 Students project
                             </p>
                         </div>
@@ -30,10 +36,8 @@
                                     <th>
                                         Submited Date
                                     </th>
-                                    @if(url()->current() == route('student.projects'))
                                     <th>Score</th>
                                     <th>Grade</th>
-                                    @endif
 
                                     <th>
                                         Action
@@ -57,13 +61,11 @@
                                         <td>
                                             {{ $project->created_at->format('d F,Y') }}
                                         </td>
-                                        @if(url()->current() == route('student.projects'))
 
                                         <td>{{ $project->score??'NA' }}</td>
                                         <td>
                                             {{ $project->grade??'Not graded' }}
                                         </td>
-                                        @endif
                                         <td>
                                             <a class="btn btn-outline-danger btn-sm"
                                                 href="{{ route('student.projects.download', $project->id) }}">
